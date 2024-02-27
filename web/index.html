@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try API REST</title>
+    <style>
+        main {
+            width: 100%;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1rem;
+        }
+
+        img {
+            width: 300px;
+        }
+    </style>
+    <script type="module">
+        fetch('http://localhost:1234/movies')
+            .then(res => res.json())
+            .then(data => {
+                const html = data.map(movie => {
+                    return `
+                        <article data-id="${movie.id}">
+                            <h1>${movie.title}</h1>
+                            <img src="${movie.poster}" />
+                        </article>
+                    `
+                }).join("");
+
+                document.querySelector("main").innerHTML = html;
+            })
+    </script>
+</head>
+<body>
+    <main>
+        
+    </main>
+</body>
+</html>

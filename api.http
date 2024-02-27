@@ -1,0 +1,42 @@
+### GET
+
+### Get all movies
+GET http://localhost:1234/movies
+
+### Get movies by pagination
+GET http://localhost:1234/movies?total=5
+
+### Get movie by ID
+GET http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+
+### Get movies of an genre
+GET http://localhost:1234/movies?genre=Action
+
+### POST
+
+### Create a movie
+POST http://localhost:1234/movies
+Content-Type: application/json
+
+{
+    "title": "Pacific Rim",
+    "year": 2013,
+    "director": "Guillermo del Toro",
+    "duration": 131,
+    "poster": "https://m.media-amazon.com/images/I/51Qsnm2gUkL._AC_.jpg",
+    "genre": [
+        "Sci-fi", 
+        "Action"
+    ],
+    "rate": 6.9
+}
+
+### PATCH
+
+### Update a movie
+PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+Content-Type: application/json
+
+{
+    "year": 1993
+}
