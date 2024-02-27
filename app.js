@@ -6,7 +6,7 @@ const { validateSchema, partialValidation } = require("./schemas/movieSchema");
 const app = express();
 app.use(express.json());
 app.disable("x-powered-by");
-const ACCEPTED_ORIGINS = "*";
+const ACCEPTED_ORIGINS = ["http://localhost:1234", "http://localhost:8080"];
 
 app.get("/movies", (req, res) => {
   const origin = req.header("origin");
@@ -68,6 +68,14 @@ app.patch("/movies/:id", (req, res) => {
 
   movies[movieIndex] = updatedMovie;
   return res.json(updatedMovie);
+});
+
+app.options("/movies/:id", (req, res) => {
+  const origin = req.header("origin");
+
+  if (ACCEPTED_ORIGINS.includes(origin) || !origin)
+    res.header("Access-Control-Allow-Origin", origin);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PACTH, DELETE");
 });
 
 const PORT = process.env.PORT ?? 1234;

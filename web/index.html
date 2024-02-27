@@ -29,12 +29,24 @@
                         <article data-id="${movie.id}">
                             <h1>${movie.title}</h1>
                             <img src="${movie.poster}" />
+                            <button>Delete</button>
                         </article>
                     `
                 }).join("");
 
                 document.querySelector("main").innerHTML = html;
-            })
+                document.addEventListener("click", e => {
+                    if (e.target.matches("button")) {
+                        const article = e.target.closest("article");
+                        const id = article.dataset.id;
+
+                        fetch(`http://localhost:1234/movies/${id}`, { method: "DELETE" })
+                            .then(data => {
+                                if (data.ok) article.remove();
+                            })
+                    }
+                });
+            });
     </script>
 </head>
 <body>
